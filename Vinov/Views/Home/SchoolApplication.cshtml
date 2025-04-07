@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Başvuru Sonuç";
+}
+
+
+
+<main class="main">
+    <article class="column">
+
+        @switch (Context.Request.Query["Result"])
+        {
+            case "1":
+                <p class="centerPosition applicationText">
+                    Başvurunuz olumlu sonuçlanmış olup ön limitiniz onaylanmıştır.<br />
+                    VakıfBank mobil, internet bankacılığı menülerinden ya da Şubelerimiz aracılığıyla Vinov hesap tanımınızı gerçekleştirebilirsiniz.
+                </p>
+                break;
+            case "2":
+                <p class="centerPosition applicationText">
+                    Başvurunuz olumlu sonuçlanmis olup ön limitiniz onaylanmıştır.<br />
+                    Bankamız müşterisi olabilir devamında VakıfBank mobil, internet bankacılığı menülerinden ya da Şubelerimiz aracılığıyla Vinov hesap tanımınızı gercekleştirebilirsiniz.
+                </p>
+                break;
+            case "3":
+                <p class="centerPosition applicationText">
+                    Başvurunuz olumlu sonuçlanmış olup ön limitiniz onaylanmıştır. Okul kayıt işlemlerinizi gerçekleştirebilirsiniz.
+                </p>
+                break;
+        }
+    </article>
+</main>

@@ -1,0 +1,26 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Hata";
+}
+
+
+<main class="main" style="justify-content:center">
+    <article class="column">
+        @if (Model.ShowRequestId)
+        {
+            <p>
+                <strong>Request ID:</strong> <code>@Model.RequestId</code>
+            </p>
+        }
+
+        @if (Model.Exception != null)
+        {
+            <p>Exception Type:<br />@Model.Exception.GetType().Name</p>
+            <p>Exception Message:<br /> @Html.Raw(Model.Exception.Message)</p>
+        }
+        <br />
+        <br />
+        <br />
+
+    </article>
+</main>

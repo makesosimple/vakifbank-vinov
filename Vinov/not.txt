@@ -1,0 +1,16 @@
+﻿{
+    "Header": {
+        "StatusCode": "APIGW000000",
+        "StatusDescription": "Tamamlandı",
+        "StatusDescriptionEn": "Completed",
+        "ObjectID": "6c6e2f75-1519-4a4f-ab04-7045ac7348a1"
+    },
+    "Data": {
+        "Result": {
+            "RejectReasonCode": 4,
+            "IsSucceeded": true,
+            "RejectReasonDescription": "Basvurunuz onaylanmamistir. Mersis: 0922003497000017",
+            "StatusCode": 2
+        }
+    }
+}

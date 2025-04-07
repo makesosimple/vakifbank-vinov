@@ -1,0 +1,76 @@
+﻿@model SchoolApplicationModel
+
+@{
+    ViewData["Title"] = "Vinov Kampüs";
+}
+
+<main class="main ml-3 ajaxform">
+    <form class="column" asp-controller="Home" asp-action="SchoolApplication">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="input-row mb-4">
+            <label asp-for="School" class="self-start mt-3"></label>
+            <div>
+
+                <select asp-for="School" class="custom-input" asp-items="@ViewBag.SchoolList">
+                    <option value="">Seçiniz</option>
+                </select>
+                <span class="input-error" asp-validation-For="School"></span>
+            </div>
+        </div>
+        <div class="input-row mb-4">
+            <label asp-for="Tckn" class="self-start mt-3"></label>
+            <div>
+
+                <input class="custom-input" placeholder="11 Haneli TC Kimlik No" asp-for="Tckn" />
+                <span asp-validation-For="Tckn" class="input-error"></span>
+            </div>
+        </div>
+
+        <div class="input-row mb-4">
+            <label asp-for="DogumTarihi" class="self-start mt-3"></label>
+            <div>
+                <input class="custom-input date" placeholder="GG/AA/YYYY" asp-for="DogumTarihi" title="Geçersiz tarih" />
+                <span asp-validation-For="DogumTarihi" class="input-error"></span>
+            </div>
+        </div>
+
+        <div class="input-row mb-4">
+            <label class="self-start mt-3" for="phoneNumber">Telefon Numarası</label>
+            <div>
+                <div class="flex gap-x-2 items-stretch">
+                    <input class="custom-input !max-w-[50px] text-center" id="phoneNumber" value="+90" readonly />
+                    <input asp-for="Telefon" class="custom-input !max-w-[194px]" />
+                </div>
+                <span asp-validation-For="Telefon" class="input-error"></span>
+            </div>
+        </div>
+        <div class="grid grid-cols-[auto_1fr] gap-x-4">
+
+            <input asp-for="Kvkk" type="checkbox" class="form-check-input" />
+            <label class="form-check-label" for="Kvkk">
+                <span>
+                    Kişisel Verilerin Korunması Kanunu'na ilişkin
+                    <a style="text-decoration: underline" target="_blank" href="https://www.vakifbank.com.tr/Default.aspx?pageID=2540">bilgilendirme metnini</a>
+                    okudum, onaylıyorum.
+                </span>
+            </label>
+        </div>
+        <span asp-validation-For="Kvkk" class="invalid-feedback input-error mb-4"></span>
+        <div class="grid grid-cols-[auto_1fr] gap-x-4 mb-4">
+            <img id="captchaimg" alt="Doğrulama Kodu" class="rounded" src="/home/GenerateCaptcha/" style="height: 50px; width: 180px; display: block" />
+            @* <img id="captchaimg" alt="Doğrulama Kodu" class="rounded" src="https://images.unsplash.com/photo-1695653422327-6eabaee1cbec?q=80&amp;w=2072&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" style="height: 50px; width: 180px; display: block" /> *@
+            <a id="captcha" class="text-base font-bold underline self-center" title="Yenile" onclick="reloadCaptcha()">Yenile</a>
+        </div>
+        <div class="input-row mb-4 lg:grid-cols-[1fr_10fr]">
+            <label>Resimdeki karakterleri giriniz.</label>
+            <input class="custom-input" asp-for="Captcha" />
+        </div>
+        <div class="mb-4">
+            <button class="custom-button">
+                Hemen Başvur
+                @*    <img src="/assets/images/button.png" alt="" /> *@
+            </button>
+        </div>
+    </form>
+
+</main>
