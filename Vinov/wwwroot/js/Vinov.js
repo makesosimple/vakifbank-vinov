@@ -162,7 +162,7 @@ $.validator.addMethod("dateDDMMYYYY", function (value, element) {
 
     // Check if the date is valid and after the year 1900
     return this.optional(element) || (date.isValid() && date.year() > 1900);
-}, "Please enter a valid date in the format dd/mm/yyyy that is after the year 1900.");
+}, "Lütfen geçerli bir tarih girin, dd/mm/yyyy biçiminde ve 1900'den büyük olmalı.");
 
 
 $.validator.methods.date = function (value, element) {

@@ -4,6 +4,39 @@
     ViewData["Title"] = "Vinov Kampüs";
 }
 
+@if (ViewBag.ApiError != null)
+{
+    <script>
+        
+
+        window.addEventListener('load', function () {
+            const resultMessage = `@Html.Raw(ViewBag.ApiError.ToString().Replace("\n", "<br/>"))`;
+
+             swalCustomButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "custom-button !w-20 !py-2",
+                    cancelButton: "btn btn-danger"
+                },
+                buttonsStyling: false
+            });
+
+            swalCustomButtons.fire({
+                html: resultMessage,
+                icon: 'error',
+                allowOutsideClick: false,
+                confirmButtonText: 'Tamam'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+        });
+    </script>
+}
+
+<script>
+    let captchaErrorQueued = false;
+</script>
 <main class="main ml-3 ajaxform">
     <form class="column" asp-controller="Home" asp-action="SchoolApplication">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -57,13 +90,13 @@
         </div>
         <span asp-validation-For="Kvkk" class="invalid-feedback input-error mb-4"></span>
         <div class="grid grid-cols-[auto_1fr] gap-x-4 mb-4">
-            <img id="captchaimg" alt="Doğrulama Kodu" class="rounded" src="/home/GenerateCaptcha/" style="height: 50px; width: 180px; display: block" />
+            <img id="captchaimg" alt="Doğrulama Kodu" class="rounded" onerror="imageError()" src="/home/GenerateCaptcha/" style="height: 50px; width: 180px; display: block" />
             @* <img id="captchaimg" alt="Doğrulama Kodu" class="rounded" src="https://images.unsplash.com/photo-1695653422327-6eabaee1cbec?q=80&amp;w=2072&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" style="height: 50px; width: 180px; display: block" /> *@
             <a id="captcha" class="text-base font-bold underline self-center" title="Yenile" onclick="reloadCaptcha()">Yenile</a>
         </div>
         <div class="input-row mb-4 lg:grid-cols-[1fr_10fr]">
             <label>Resimdeki karakterleri giriniz.</label>
-            <input class="custom-input" asp-for="Captcha" />
+            <input class="custom-input"  asp-for="Captcha" />
         </div>
         <div class="mb-4">
             <button class="custom-button">
@@ -74,3 +107,43 @@
     </form>
 
 </main>
+<script>
+    
+
+        function imageError() {
+            captchaErrorQueued = true;
+        }
+    
+        window.addEventListener('load', function () {
+                if (!captchaErrorQueued) {
+                    return;
+                }
+                
+                swalCustomButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "custom-button !w-20 !py-2",
+                        cancelButton: "btn btn-danger"
+                    },
+                    buttonsStyling: false
+                });
+
+                setTimeout(() => {
+                    if (typeof swalCustomButtons !== 'undefined') {
+                        swalCustomButtons.fire({
+                            icon: 'error',
+                            html: 'Bilinmeyen bir hata oluştu. Lütfen sayfayı yenileyin.',
+                            confirmButtonText: 'Yenile',
+                            allowOutsideClick: false
+                        }).then(result => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        console.warn('swalCustomButtons is not loaded yet.');
+                    }
+                }, 100); // slight delay to ensure swal is ready
+        
+        });
+    
+</script>
